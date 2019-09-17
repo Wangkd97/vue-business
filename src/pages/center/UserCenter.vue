@@ -6,6 +6,8 @@
         </router-link>
         <!--<mt-button icon="more" slot="right"></mt-button>-->
       </mt-header>
+      <button @click="alter">修改</button>
+      <button @click="reserve" >保存</button>
       <mt-field label="用户名" placeholder="请输入用户名" v-model="this.getUser.username" :readonly="readonly"></mt-field>
       <mt-field label="邮箱" placeholder="请输入邮箱" type="email" v-model="this.getUser.email" :readonly="readonly"></mt-field>
       <mt-field label="联系方式" placeholder=""  v-model="this.getUser.phone" :readonly="readonly"> </mt-field>
@@ -26,6 +28,9 @@
         methods:{
           back:function () {
             this.$router.go(-1)
+          },
+          alter:function () {
+            this.readonly=false
           }
         },
         computed:{

@@ -1,21 +1,35 @@
 <template>
   <div>
     <div class="recommend-title">热销推荐</div>
-    <ul>
-      <router-link
-        tag="li"
-        class="item border-bottom"
-        v-for="(item,index) of hots"
-        :key="index"
-         :to="'/detail/'+item.id">
-         <img class="item-img" :src="'http://img.cdn.imbession.top/'+item.mainImage"/>
-         <div class="item-info">
-           <p class="item-title">{{item.name}} </p>
-           <p class="item-desc">{{item.subtitle}}</p>
-           <p class="item-price">￥{{item.price}}</p>
-           <!--<button class="item-button">查看详情</button>-->
-         </div>
-      </router-link>
+    <ul >
+      <!--<router-link-->
+        <!--tag="li"-->
+        <!--class="item border-bottom"-->
+        <!--v-for="(item,index) of hots"-->
+        <!--:key="index"-->
+         <!--:to="{path:'/goodsInfo/',query:{id:item.id}}">-->
+         <!--<img class="item-img" :src="'http://img.cdn.imbession.top/'+item.mainImage"/>-->
+         <!--<div class="item-info" >-->
+           <!--<p class="item-title">{{item.name}} </p>-->
+           <!--<p class="item-desc">{{item.subtitle}}</p>-->
+           <!--<p class="item-price">￥{{item.price}}</p>-->
+           <!--&lt;!&ndash;<button class="item-button">查看详情</button>&ndash;&gt;-->
+         <!--</div>-->
+      <!--</router-link>-->
+      <li
+
+      class="item border-bottom"
+      v-for="(item,index) of hots"
+      :key="index"
+      @click="toGoodsInfo(item.id)">
+      <img class="item-img" :src="'http://img.cdn.imbession.top/'+item.mainImage"/>
+      <div class="item-info" >
+      <p class="item-title">{{item.name}} </p>
+      <p class="item-desc">{{item.subtitle}}</p>
+      <p class="item-price">￥{{item.price}}</p>
+      <!--<button class="item-button">查看详情</button>-->
+      </div>
+      </li>
     </ul>
   </div>
 </template>
@@ -30,6 +44,16 @@
           return {
 
           }
+      },
+      methods:{
+        toGoodsInfo:function (id) {
+          this.$router.push({
+            name:"goodsInfo",
+            params:{
+              id:id
+            }
+          })
+        }
       }
     }
 </script>
@@ -49,6 +73,7 @@
      width :1.7rem
      height :1.7rem
      padding :.1rem
+
     .item-info
       flex:1
       padding .1rem
@@ -73,4 +98,6 @@
         padding :0.2rem
         border-radius :.06rem
         color :#ffffff
+
+
 </style>

@@ -7,6 +7,7 @@
     <!--</div>-->
 
   <div>
+    <footer-bar></footer-bar>
     <home-header></home-header>
     <home-swiper :banners="bannerList"></home-swiper>
     <home-icons></home-icons>
@@ -20,46 +21,23 @@
 
 <script>
 
-
-  // import { mapGetters } from 'vuex'
-  //   export default {
-  //       name: "ProductHome",
-  //       computed:{
-  //         ...mapGetters(['getUser'])
-  //       },
-  //     mounted:function () {
-  //       if(JSON.stringify(this.getUser)=='{}'){
-  //         console.log("=========user===null=")
-  //       }else {
-  //         console.log("=========user===="+this.getUser)
-  //       }
-  //     }
-  //   }
+  import FooterBar from '@/components/FooterBar'
   import HomeHeader from "./components/Header"
   import HomeSwiper from './components/Swiper'
   import HomeIcons from './components/Icons'
   import HomeRecommend from './components/Recommend'
   import NewProduct from './components/NewProduct'
   import axios from 'axios'
+  import {mapActions} from 'vuex'
   export default {
     name: "ProductHome",
     components:{
-      HomeHeader,HomeSwiper,HomeIcons,HomeRecommend,NewProduct
+      HomeHeader,HomeSwiper,HomeIcons,HomeRecommend,NewProduct,FooterBar
     },
     data(){
       return {
         bannerList:[],
-        hotList:[
-          // {
-          //   id:"1",
-          //   name:"apple",
-          //   productUrl:"http://img.cdn.imbession.top/combanner.png",
-          //   price:"8848",
-          //   subtitle:"sadasdasdasdasdas"
-          // }
-
-
-        ],
+        hotList:[],
         newList:[]
       }
     },
@@ -69,7 +47,32 @@
         this.getNewInfo()
 
     },
+    created() {
+      console.log("=========created===order==")
+      //this.isShowFooterBar(false)
+      var _vm=this
+      window.onscroll = function(){
+//变量scrollTop是滚动条滚动时，距离顶部的距离
+        var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+//变量windowHeight是可视区的高度
+        var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+//变量scrollHeight是滚动条的总高度
+        var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+        //滚动条到底部的条件
+        if((scrollTop+windowHeight+60)>=scrollHeight){
+          //写后台加载数据的函数
+          console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+
+          _vm.isShowFooterBar(false)
+        }else{
+          _vm.isShowFooterBar(true)
+        }
+      }
+
+    },
+
     methods:{
+      ...mapActions(['isShowFooterBar']),
       getBannerInfo(){
         axios.get("http://localhost:8888/portal/product/getBannerProducts")
           .then(this.getBannerInfooSucc)

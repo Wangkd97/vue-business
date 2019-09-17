@@ -2,8 +2,8 @@
   <div>
     <div class="recommend-title">新品推荐</div>
     <ul>
-      <li class="item border-bottom" v-for="(item,index) of newList" :key="index" v-if="index<6">
-        <div class="item-img-wrapper">
+      <li class="item border-bottom" v-for="(item,index) of newList" :key="index" :to="'/detail/'+item.id" v-if="index<6"  >
+        <div class="item-img-wrapper" @click="newclick(item.id)">
           <img class="item-img" :src="'http://img.cdn.imbession.top/'+item.mainImage"/>
         </div>
 
@@ -47,6 +47,17 @@
             price:'￥100起'
           }
         ]
+
+      }
+    },
+    methods:{
+      newclick:function (id) {
+        this.$router.push({
+          name:"goodsInfo",
+          params:{
+            id:id
+          }
+        })
       }
     }
   }
@@ -61,11 +72,13 @@
     text-indent:.2rem
   .item
     .item-img-wrapper
+      width :100%
       height :0
       padding-bottom :34%
       overflow :hidden
       .item-img
         width :100%
+
     .item-info
       padding .1rem
       .item-title

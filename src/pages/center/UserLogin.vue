@@ -22,7 +22,7 @@
 </template>
 
 <script>
-
+  import { Toast } from 'mint-ui';
   import {mapActions} from 'vuex'
     export default {
         name: "UserLogin",
@@ -36,25 +36,33 @@
           ...mapActions(['setUserInfo']),
         userLogin:function () {
 
-          var _vm=this;
-          //通过axios
-          this.service.post("/user/login.do",{
-          //  params:{
-              "username":this.username,
-              "password":this.password
-          //  }
-          }).then(function (response) {
-            console.log(response);
-              if(response.data.status==0){
-                //当用户登录成功后，将用户信息保存到vuex中
-                _vm.setUserInfo(response.data.data)
-                _vm.$router.go(-1)
-              }
+            if(this.username==''||this.password==''){
+              Toast('用户名或密码为空');
+            }else{
+              var _vm=this;
+              //通过axios
+              this.service.post("/user/login.do",{
+                //  params:{
+                "username":this.username,
+                "password":this.password
+                //  }
+              }).then(function (response) {
+                console.log(response);
+                if(response.data.status==0&&response.data.wrongMsg==null){
+                  //当用户登录成功后，将用户信息保存到vuex中
+                  _vm.setUserInfo(response.data.data)
+                  _vm.$router.go(-1)
+                 // _vm.$router.push("/my")
+                }else{
+                  Toast('用户不存在或密码错误')
+                }
 
-          })
-            .catch(function (error) {
-              console.log(error);
-            });
+              })
+                .catch(function (error) {
+                  console.log(error);
+                });
+            }
+
 
 
         },

@@ -10,6 +10,17 @@ import my from "@/pages/center/my"
 import Cart from "@/pages/cart/Cart"
 import UserCenter from '@/pages/center/UserCenter'
 import MyOrder from '@/pages/order/MyOrder'
+import MyNoPayOrder from '@/pages/order/MyNoPayOrder'
+
+import goodsInfo from '@/pages/goods/goodsInfo'
+// import goodsindex from '@/pages/goods/goodsindex'
+import goodstest from '@/pages/goods/goodstest'
+import cartPay from '@/pages/cart/pay'
+import payPicture from '@/pages/cart/payPicture'
+import Address from '@/pages/cart/Address'
+import AddAddress from '@/pages/cart/AddAddress'
+import modifyAddress from '@/pages/cart/modifyAddress'
+import newAddress from '@/pages/cart/newAddress'
 Vue.use(Router)
 
 export default new Router({
@@ -53,6 +64,56 @@ export default new Router({
       path: '/myorder',
       name: 'MyOrder',
       component: MyOrder
-    }
+    },
+    {
+      path: '/myNoPayorder',
+      name: 'MyNoPayOrder',
+      component: MyNoPayOrder
+    },
+    {
+      path: '/goodsInfo',
+      name: 'goodsInfo',
+      component: goodsInfo
+    },
+    {
+      path: '/goodstest',
+      name: 'goodstest',
+      component: goodstest
+    },
+    {
+      path: '/cartPay',
+      name: 'cartPay',
+      component: cartPay
+    },
+    {
+      path: '/payPicture',
+      name: 'payPicture',
+      component: payPicture
+    },
+    {
+      path: '/Address',
+      name: 'Address',
+      component: Address
+    },
+    {
+      path: '/modifyAddress',
+      name: 'modifyAddress',
+      component: modifyAddress
+    },
+    {
+      path: '/newAddress',
+      name: 'newAddress',
+      component: newAddress
+    },
+    {
+      path: '/AddAddress',
+      name: 'AddAddress',
+      component: AddAddress
+    },
+    // {
+    //   path: '/goodsindex',
+    //   name: 'goodsindex',
+    //   component: goodsindex
+    // }
   ]
 })

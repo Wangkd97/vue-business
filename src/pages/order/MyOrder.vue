@@ -15,10 +15,10 @@
     <div class="page-navbar">
       <mt-navbar class="page-part" v-model="selected">
         <mt-tab-item id="1">全部订单</mt-tab-item>
-        <mt-tab-item id="2">未付款</mt-tab-item>
-        <mt-tab-item id="3">已付款</mt-tab-item>
+        <mt-tab-item id="2">未支付</mt-tab-item>
+        <mt-tab-item id="3">已支付</mt-tab-item>
         <mt-tab-item id="4">已发货</mt-tab-item>
-        <mt-tab-item id="5">已取消</mt-tab-item>
+        <!--<mt-tab-item id="5">已取消</mt-tab-item>-->
       </mt-navbar>
 
       <div>
@@ -59,7 +59,7 @@
                         </li>
                       </ul>
                       <div class="orderBtnDiv">
-                        <mt-button class="orderBtn" size="small">{{getorderDesc(order)}}</mt-button>
+                        <mt-button class="orderBtn" size="small" v-if="getorderDesc(order)=='去支付'">{{getorderDesc(order)}}</mt-button>
                       </div>
                     </div>
                   </div>
@@ -69,11 +69,136 @@
 
 
             <mt-tab-container-item id="2">
-              <mt-cell v-for="n in 20" :title="'测试 ' + n" :key="n*20"></mt-cell>
+
+              <ul>
+                <!--自定义组件原生事件要加native修饰符-->
+                <li class="orderItem_container" @click.native="clickOrderItem(order)"
+                    v-for="order in this.orderList"
+                    :key="order.orderNo">
+
+                  <div class="orderContainer" v-if="order.statusDesc=='未支付'">
+                    <div class="orderinfo">
+                      <span class="orderNo" v-text="'订单号: ' + order.orderNo"></span>
+                      <span  class="orderStatus" v-text=" order.statusDesc"></span>
+                    </div>
+                    <div class="orderContentContainer">
+                      <ul>
+                        <li class="orderItemContainer" v-for="orderItem in order.orderItemVoList" :key="order.orderNo">
+                          <img class="productImage" :src="'http://img.cdn.imbession.top/'+orderItem.productImage" >
+                          <div class="OrderItemInfo">
+                            <p  class="productName" v-text="orderItem.productName"></p>
+                            <p  class="quantity" v-text="'数量'+orderItem.quantity"></p>
+                            <p class="totalprice" v-text="'总价格￥'+(orderItem.currentUnitPrice*orderItem.quantity)"></p>
+
+                          </div>
+                        </li>
+                      </ul>
+                      <div class="orderBtnDiv">
+                        <mt-button class="orderBtn" size="small" @click="pay(order.orderNo)">{{getorderDesc(order)}}</mt-button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <!--<mt-cell v-for="n in 20" :title="'测试 ' + n" :key="n*20"></mt-cell>-->
             </mt-tab-container-item>
             <mt-tab-container-item id="3">
-              <mt-cell v-for="n in 20" :title="'选项 ' + n" :key="n*100" ></mt-cell>
+              <!--<mt-cell v-for="n in 20" :title="'选项 ' + n" :key="n*100" ></mt-cell>-->
+              <ul>
+                <!--自定义组件原生事件要加native修饰符-->
+                <li class="orderItem_container" @click.native="clickOrderItem(order)"
+                    v-for="order in this.orderList"
+                    :key="order.orderNo">
+
+                  <div class="orderContainer" v-if="order.statusDesc=='已支付'">
+                    <div class="orderinfo">
+                      <span class="orderNo" v-text="'订单号: ' + order.orderNo"></span>
+                      <span  class="orderStatus" v-text=" order.statusDesc"></span>
+                    </div>
+                    <div class="orderContentContainer">
+                      <ul>
+                        <li class="orderItemContainer" v-for="orderItem in order.orderItemVoList" :key="order.orderNo">
+                          <img class="productImage" :src="'http://img.cdn.imbession.top/'+orderItem.productImage" >
+                          <div class="OrderItemInfo">
+                            <p  class="productName" v-text="orderItem.productName"></p>
+                            <p  class="quantity" v-text="'数量'+orderItem.quantity"></p>
+                            <p class="totalprice" v-text="'总价格￥'+(orderItem.currentUnitPrice*orderItem.quantity)"></p>
+
+                          </div>
+                        </li>
+                      </ul>
+                      <div class="orderBtnDiv">
+                        <!--<mt-button class="orderBtn" size="small">{{getorderDesc(order)}}</mt-button>-->
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </mt-tab-container-item>
+            <mt-tab-container-item id="4">
+              <ul>
+                <!--自定义组件原生事件要加native修饰符-->
+                <li class="orderItem_container" @click.native="clickOrderItem(order)"
+                    v-for="order in this.orderList"
+                    :key="order.orderNo">
+
+                  <div class="orderContainer" v-if="order.statusDesc=='已发货'">
+                    <div class="orderinfo">
+                      <span class="orderNo" v-text="'订单号: ' + order.orderNo"></span>
+                      <span  class="orderStatus" v-text=" order.statusDesc"></span>
+                    </div>
+                    <div class="orderContentContainer">
+                      <ul>
+                        <li class="orderItemContainer" v-for="orderItem in order.orderItemVoList" :key="order.orderNo">
+                          <img class="productImage" :src="'http://img.cdn.imbession.top/'+orderItem.productImage" >
+                          <div class="OrderItemInfo">
+                            <p  class="productName" v-text="orderItem.productName"></p>
+                            <p  class="quantity" v-text="'数量'+orderItem.quantity"></p>
+                            <p class="totalprice" v-text="'总价格￥'+(orderItem.currentUnitPrice*orderItem.quantity)"></p>
+
+                          </div>
+                        </li>
+                      </ul>
+                      <div class="orderBtnDiv">
+                        <!--<mt-button class="orderBtn" size="small">{{getorderDesc(order)}}</mt-button>-->
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </mt-tab-container-item>
+            <!--<mt-tab-container-item id="5">-->
+              <!--<ul>-->
+                <!--&lt;!&ndash;自定义组件原生事件要加native修饰符&ndash;&gt;-->
+                <!--<li class="orderItem_container" @click.native="clickOrderItem(order)"-->
+                    <!--v-for="order in this.orderList"-->
+                    <!--:key="order.orderNo">-->
+
+                  <!--<div class="orderContainer" v-if="order.statusDesc=='已取消'">-->
+                    <!--<div class="orderinfo">-->
+                      <!--<span class="orderNo" v-text="'订单号: ' + order.orderNo"></span>-->
+                      <!--<span  class="orderStatus" v-text=" order.statusDesc"></span>-->
+                    <!--</div>-->
+                    <!--<div class="orderContentContainer">-->
+                      <!--<ul>-->
+                        <!--<li class="orderItemContainer" v-for="orderItem in order.orderItemVoList" :key="order.orderNo">-->
+                          <!--<img class="productImage" :src="'http://img.cdn.imbession.top/'+orderItem.productImage" >-->
+                          <!--<div class="OrderItemInfo">-->
+                            <!--<p  class="productName" v-text="orderItem.productName"></p>-->
+                            <!--<p  class="quantity" v-text="'数量'+orderItem.quantity"></p>-->
+                            <!--<p class="totalprice" v-text="'总价格￥'+(orderItem.currentUnitPrice*orderItem.quantity)"></p>-->
+
+                          <!--</div>-->
+                        <!--</li>-->
+                      <!--</ul>-->
+                      <!--<div class="orderBtnDiv">-->
+                        <!--<mt-button class="orderBtn" size="small">{{getorderDesc(order)}}</mt-button>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</mt-tab-container-item>-->
           </mt-tab-container>
         </mt-loadmore>
       </div>
@@ -99,22 +224,44 @@
     },
     computed:{
       orderList:function () {
-
         return this.pageModel.orderViewObjectList
       }
     },
     methods:{
+      pay:function(orderNo){
+        var _vm=this
+        this.service.post("/portal/order/pay",{
+          orderNo:orderNo
+        }).then(function (response) {
+          console.log(response)
+          console.log(response.data.status+"========status========")
+          if(response.data.status==0){
+            _vm.$router.push({
+              name:"payPicture",
+              params:{
+                imgSrc:response.data.data.qrCode,
+                orderId:_vm.orderNo
+              }
+            })
+          }else{
+            Toast('下单失败！')
+          }
+        })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
       back:function () {
         this.$router.go(-1)
+        this.isShowFooterBar(true)
       },
       clickOrderItem:function (order) {
-
         Toast('提示信息');
       },
 
-      ...mapActions(['isshowFooterBar']),
+      ...mapActions(['isShowFooterBar']),
       loadTop:function() {
-        this.getMyOrderList('refresh',1,1)
+        this.getMyOrderList('refresh',1,10)
 
         // 加载更多数据
         // this.$refs.loadmore.onTopLoaded();
@@ -122,7 +269,7 @@
       loadBottom:function() {
         // 加载更多数据
         console.log("=======加载更多===")
-        // this.$refs.loadmore.onBottomLoaded();
+         this.$refs.loadmore.onBottomLoaded();
         console.log(this.pageModel.pageNum);
         if(this.pageModel.hasNextPage){
           this.getMyOrderList("loadmore",this.pageModel.pageNum+1,10)
@@ -130,55 +277,45 @@
           this.allLoaded=true
           this.$refs.loadmore.onBottomLoaded();
         }
-
       },
       getMyOrderList:function (optype,pageNo,pageSize) {
         var _vm=this
         this.service.post("/portal/order/searchOrderList",{
           "userID":this.userID,
-          "pageNum":1,
-          "size":100
+          "pageNum":pageNo,
+          "size":pageSize
         })
           .then(function(response){
-
-
             //_vm.orderList.push(response.data.data.list);
             console.log(response.data.data)
             console.log(response.data.data.orderViewObjectList)
             console.log(response.data.data.orderViewObjectList)
-
             if(optype=='refresh'){
               _vm.pageModel=response.data.data
               _vm.$refs.loadmore.onTopLoaded();
               _vm.allLoaded=false
             }else if(optype=='loadmore'){
-              if(response.data.data.list.length>0){
-
-                const oldOrders= _vm.pageModel.list
+              if(response.data.data.orderViewObjectList.length>0){
+                const oldOrders= _vm.pageModel.orderViewObjectList
                 console.log("=========旧数据===")
                 console.log(oldOrders)
                 var orderItem;
                 // for( var i=0 ;i<oldOrders.length;i++){
                 // response.data.data.list.splice(0,0,oldOrders[i])
-
                 // }
-                var newArrayOrder=oldOrders.concat(response.data.data.list)
-                response.data.data.list=newArrayOrder
+                var newArrayOrder=oldOrders.concat(response.data.data.orderViewObjectList)
+                response.data.data.orderViewObjectList=newArrayOrder
                 console.log("=========新数据===")
-                console.log( response.data.data.list)
-
+                console.log( response.data.data.orderViewObjectList)
               }else{
                 //加载完成
                 _vm.allLoaded = true;// 若数据已全部获取完毕
               }
               _vm.pageModel=response.data.data
               console.log("loadmore=")
-              console.log( _vm.pageModel.list)
+              console.log( _vm.pageModel.orderViewObjectList)
               _vm.$refs.loadmore.onBottomLoaded();
-
             }
-
-
           })
           .catch(function (error) {
             console.log(error)
@@ -193,10 +330,8 @@
     },
     watch:{
       selected:function(newval,oldval){
-
         console.log("============newvale===="+newval)
         this.getMyOrderList('refresh',1,10)
-
         /**
          * 我的上拉下拉是个切换卡，因为loadmore是同一个容器，所以你往上拉的时候，点击另一个tab它的内容就会定位到上一个tab拉到的位置处
          在tab切换时增加滚到顶部即可
@@ -205,32 +340,7 @@
         loadme.scrollTop=0
       }
     },
-    created() {
 
-      console.log("=========created===order==")
-      this.isshowFooterBar(false)
-      var _vm=this
-      window.onscroll = function(){
-
-//变量scrollTop是滚动条滚动时，距离顶部的距离
-        var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
-//变量windowHeight是可视区的高度
-        var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-//变量scrollHeight是滚动条的总高度
-        var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
-
-        //滚动条到底部的条件
-        if((scrollTop+windowHeight+60)>=scrollHeight){
-          //写后台加载数据的函数
-          console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
-
-          _vm.isshowFooterBar(false)
-        }else{
-          _vm.isshowFooterBar(true)
-        }
-      }
-
-    },
     mounted(){
       this.getMyOrderList('refresh',1,10)
       console.log("=====mounted====")
@@ -239,7 +349,7 @@
         -this.$refs.wrapper.getBoundingClientRect().top;
       console.log(this.wrapperHeight)
      // Toast("gaodu="+this.wrapperHeight)
-      this.isshowFooterBar(false)
+      this.isShowFooterBar(false)
 
     }
   }

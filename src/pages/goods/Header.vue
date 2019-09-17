@@ -1,14 +1,9 @@
 <template>
     <div class="header">
-      <!--&#xe624;-->
-      <div class="header-left"><div class="iconfont icon-back"></div></div>
-      <div class="header-input"><span class="iconfont">&#xe632;</span>
-        <!--<span class="warn">搜索商品信息</span>-->
-        <input placeholder="请输入要搜索的商品" >
-
-      </div>
-      <router-link to="/">
-       <div class="header-right"><span class="city">搜索</span></div>
+      <div class="header-left"><div class="iconfont icon-back">&#xe624;</div></div>
+      <!--<div class="header-input"><span class="iconfont">&#xe632;</span><span class="warn">搜索商品信息</span></div>-->
+      <router-link to="/city">
+       <!--<div class="header-right"><span class="city">城市</span><span class="iconfont arrow-icon">&#xe64a;</span></div>-->
       </router-link>
     </div>
 </template>

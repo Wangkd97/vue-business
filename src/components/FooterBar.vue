@@ -22,6 +22,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
+
     export default {
         name: "FooterBar",
         data(){
@@ -33,9 +34,11 @@
           }
         },
       computed:{
-          ...mapGetters(["isShowFooterBar"])
+          ...mapGetters(["isShowFooterBar"]),
+          ...mapGetters(["getUser"])
       },
       watch:{
+
           selected:function () {
 
             if(this.selected=='producthome'){
@@ -48,7 +51,17 @@
 
             if(this.selected=='cart'){
               //购物车
-              this.$router.push("/cart")
+              console.log(this.getUser.username+"========")
+
+              if (JSON.stringify(this.getUser)=='{}')//JSON.stringify(this.getUser!='{}')
+              {
+               // this.$router.push("/cart")
+               this.$router.push("/login")
+                //this.$router.push("/cart")
+              }else{
+                this.$router.push("/cart")
+                //this.$router.push("/login")
+              }
               this.cart_img='static/images/cart_selected.png'
             }else{
               this.cart_img='static/images/cart_unselected.png'

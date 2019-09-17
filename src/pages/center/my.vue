@@ -17,47 +17,50 @@
           <i class="zhlf-19 icon"></i>
         </router-link>
       </div>
-      <div class="order-menu">
-        <div class="order-title">
-          <div class="my-orders">我的订单</div>
-          <div class="others">
-            查看全部
-            <i class="zhlf-17"></i>
-          </div>
-        </div>
+      <!--<div class="order-menu">-->
+        <!--<div class="order-title">-->
+          <!--<div class="my-orders">我的订单</div>-->
+          <!--<div class="others">-->
+            <!--查看全部-->
+            <!--<i class="zhlf-17"></i>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="top-menu">-->
+        <!--<div class="top-menu-item">-->
+          <!--<i class="zhlf-15 gray"></i>-->
+          <!--<span class="title">待付款</span>-->
+        <!--</div>-->
+        <!--<div class="top-menu-item">-->
+          <!--<i class="zhlf-4 gray"></i>-->
+          <!--<span class="title">待分享</span>-->
+        <!--</div>-->
+        <!--<div class="top-menu-item">-->
+          <!--<i class="zhlf-21 gray"></i>-->
+          <!--<span class="title">待发货</span>-->
+        <!--</div>-->
+        <!--<div class="top-menu-item">-->
+          <!--<i class="zhlf-2 gray"></i>-->
+          <!--<span class="title">待收货</span>-->
+        <!--</div>-->
+        <!--<div class="top-menu-item">-->
+          <!--<i class="zhlf-uniE902 gray"></i>-->
+          <!--<span class="title">待评价</span>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div @click="clickMyOrder">
+        <mt-cell  value="我的订单" @click="clickMyOrder"></mt-cell>
+        <!--<p @click="clickMyOrder">我的订单</p>-->
       </div>
-      <div class="top-menu">
-        <div class="top-menu-item">
-          <i class="zhlf-15 gray"></i>
-          <span class="title">待付款</span>
-        </div>
-        <div class="top-menu-item">
-          <i class="zhlf-4 gray"></i>
-          <span class="title">待分享</span>
-        </div>
-        <div class="top-menu-item">
-          <i class="zhlf-21 gray"></i>
-          <span class="title">待发货</span>
-        </div>
-        <div class="top-menu-item">
-          <i class="zhlf-2 gray"></i>
-          <span class="title">待收货</span>
-        </div>
-        <div class="top-menu-item">
-          <i class="zhlf-uniE902 gray"></i>
-          <span class="title">待评价</span>
-        </div>
+      <div @click="layout">
+        <mt-cell  value="退出登录" @click="layout"></mt-cell>
       </div>
-      <div class="middle-menu top-menu">
-          <button >设置</button>
-        <p @click="clickMyOrder">我的订单</p>
-      </div>
-
       </div>
 
   </template>
 
 <script>
+  import { Cell } from 'mint-ui';
 
   import {mapGetters} from 'vuex'
     export default {
@@ -75,6 +78,7 @@
 
       },
       mounted(){
+
           if(JSON.stringify( this.getUser)=='{}'){
              this.optxex="去登陆"
              this.isLogin=false
@@ -86,6 +90,7 @@
 
       },
       methods:{
+
         logic:function () {
 
           if(this.isLogin){
@@ -99,6 +104,21 @@
         },
         clickMyOrder:function () {
           this.$router.push("/myorder")
+        },
+        layout:function () {
+          var _vm=this
+          this.service.post("/user/logout.do",{
+
+          }).then(function (response) {
+            console.log(response);
+            if (response.data.status==0){
+              _vm.$router.go(0)
+            }
+
+          })
+            .catch(function (error) {
+              console.log(error);
+            });
         }
       }
 
@@ -127,72 +147,6 @@
             width 80px
             height 80px
             border-radius 50%
-        .nickname-wrapper
-          display flex
-          flex-direction row
-          align-items center
-          .phone
-            font-size 20px
-            color #151516
-          .icon
-            padding-left 10px
-            font-size 30px
-            color #12b7f6
-      .order-menu
-        background white
-        padding 10px 20px
-        .order-title
-          display flex
-          flex-direction row
-          justify-content space-between
-          .my-orders
-            font-size 17px
-            color #151516
-          .others
-            font-size 13px
-            color #999
-      .top-menu
-        display flex
-        flex-direction row
-        justify-content space-between
-        padding 10px 20px
-        background white
-        margin-bottom 10px
-        .top-menu-item
-          display flex
-          flex-direction column
-          align-items center
-          .gray
-            margin-bottom 5px
-            font-size 24px
-            color #9c9c9c
-            font-weight 400
-          .red
-            font-size 24px
-            color #e02e24
-          .title
-            font-size 13px
-            padding-top 5px
-            color #58595b
-      .bottom-menu
-        display flex
-        flex-direction row
-        justify-content space-between
-        flex-wrap wrap
-        padding-top 20px
-        background white
-        .bottom-menu-item
-          width 25%
-          display flex
-          flex-direction column
-          align-items center
-          padding-bottom 20px
-          .yellow
-            color orange
-            font-size 24px
-            padding-bottom 5px
-          span
-            font-weight normal
-            font-size 13px
-            color #58595b
+
+
     </style>

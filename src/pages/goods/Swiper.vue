@@ -1,7 +1,5 @@
 <template>
   <div class="wrapper">
-
-
   <swiper :options="swiperOption" >
     <!-- slides -->
 
@@ -9,7 +7,7 @@
     <!--<swiper-slide>22222</swiper-slide>-->
     <!--<swiper-slide>33333</swiper-slide>-->
     <swiper-slide v-for="(item,index) of banners" :key="index " v-if="index<4" data-swiper-autoplay="3000">
-      <img class="swiper-img" @click="swiperclick(item.id)" :src="'http://img.cdn.imbession.top/'+item.mainImage"/>
+      <img class="swiper-img" :src="'http://img.cdn.imbession.top/'+item.mainImage"/>
     </swiper-slide>
     <div class="swiper-pagination"  slot="pagination"></div>
   </swiper>
@@ -30,17 +28,7 @@
               autoplay: true
             }
           }
-        },
-      methods:{
-        swiperclick:function(id){
-          this.$router.push({
-            name:"goodsInfo",
-            params: {
-              id: id
-            }
-          })
         }
-      }
     }
 </script>
 
