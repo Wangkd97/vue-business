@@ -150,7 +150,7 @@
             .catch(function (error) {
               console.log(error);
             });
-            this.$router.push("/cart")
+            this.$router.go(-1)
         },
         jian:function () {
           if (this.productNum>1){

@@ -90,7 +90,7 @@
             .then(function(response){
               console.log(response+"============dingdan======")
               _vm.orderNo=response.data.data.orderNo
-              console.log(_vm.orderNo)
+              console.log(_vm.orderNo+"=====cart=chuan=dingdanhao===")
               _vm.$router.push({
                 name:"cartPay",
                 params:{

@@ -89,11 +89,12 @@
         },
         getOrderProduct:function(){
           var _vm=this
-          this.service.post("/portal/order/searchProductFromOrder",{
-
+          this.service.post("/portal/order/findMainOrder",{
+            orderNo:this.orderId
           }).then(function (response) {
-            console.log(response)
-            _vm.cartProductList = response.data.data.orderItemViewObjectList
+            console.log(response+"===chaxundingdanxinxi===========")
+            console.log(response.data)
+            _vm.cartProductList = response.data.data.oderItem
             _vm.totalprice = response.data.data.totalPrice
             console.log(_vm.cartProductList)
           })
@@ -102,13 +103,14 @@
             });
         },
         toPicture:function () {
+          console.log(this.orderId)
           var _vm=this
           this.service.post("/portal/order/pay",{
-            orderNo:this.orderNo
+            orderNo:this.orderId
           }).then(function (response) {
             console.log(response)
-            console.log(response.data.data.status+"========status========")
-            if(response.data.data.status==0){
+            console.log(response.data.status+"========status========")
+            if(response.data.status==0){
               console.log(_vm.orderId+"===pay chuan gei pic id =======")
               _vm.$router.push({
                 name:"payPicture",

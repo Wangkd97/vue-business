@@ -219,13 +219,14 @@
         pageModel:{},
         // orderList:[],
         autoFill:true,
-        wrapperHeight:0
+        wrapperHeight:0,
       }
     },
     computed:{
       orderList:function () {
         return this.pageModel.orderViewObjectList
-      }
+      },
+
     },
     methods:{
       pay:function(orderNo){
@@ -240,7 +241,7 @@
               name:"payPicture",
               params:{
                 imgSrc:response.data.data.qrCode,
-                orderId:_vm.orderNo
+                orderId:orderNo
               }
             })
           }else{

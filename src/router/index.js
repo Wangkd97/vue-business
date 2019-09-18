@@ -21,6 +21,8 @@ import Address from '@/pages/cart/Address'
 import AddAddress from '@/pages/cart/AddAddress'
 import modifyAddress from '@/pages/cart/modifyAddress'
 import newAddress from '@/pages/cart/newAddress'
+import testcart from '@/pages/test/Cart'
+import testcart1 from '@/pages/test/Cart1'
 Vue.use(Router)
 
 export default new Router({
@@ -109,6 +111,16 @@ export default new Router({
       path: '/AddAddress',
       name: 'AddAddress',
       component: AddAddress
+    },
+    {
+      path: '/testcart',
+      name: 'testcart',
+      component: testcart
+    },
+    {
+      path: '/testcart1',
+      name: 'testcart1',
+      component: testcart1
     },
     // {
     //   path: '/goodsindex',
