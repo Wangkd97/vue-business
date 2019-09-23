@@ -2,7 +2,7 @@
     <div class="header">
       <div class="header-left"><div class="iconfont icon-back">&#xe624;</div></div>
       <!--<div class="header-input"><span class="iconfont">&#xe632;</span><span class="warn">搜索商品信息</span></div>-->
-      <router-link to="/city">
+      <router-link to="/city" v-model="productname">
        <!--<div class="header-right"><span class="city">城市</span><span class="iconfont arrow-icon">&#xe64a;</span></div>-->
       </router-link>
     </div>

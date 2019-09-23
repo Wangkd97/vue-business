@@ -46,7 +46,7 @@
         name="123213"
         style="width: 100%">
         <br>
-        <img src="http://img.cdn.imbession.top/hotoppo.png" style="height: 100px;width: 100px">
+        <img :src="'http://img.cdn.imbession.top/'+productInfo.mainImage" style="height: 100px;width: 100px">
         <span >{{this.productInfo.name}}</span>
         <br>
         <span style="font-size:30px;color:orange">￥{{productInfo.price}}</span>

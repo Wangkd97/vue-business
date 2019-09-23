@@ -3,8 +3,8 @@
       <swiper :options="swiperOption">
         <swiper-slide v-for="(page,index1) of pages" :key="index1">
          <div class="icon" v-for="(item,index) of page" :key="index">
-           <div class="icon-img">
-             <img class="icon-img-content" :src="item.imgUrl"/>
+           <div class="icon-img" @click="findByCategoryId(item.id)">
+             <img class="icon-img-content" :src="item.imgUrl" />
            </div>
            <p class="icon-desc">{{item.name}}</p>
          </div>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
   import axios from 'axios'
     export default {
         name: "HomeIcons",
@@ -42,6 +43,7 @@
           this.getCategory()
       },
       methods:{
+        ...mapActions(['setKeyword','setCategoryId']),
           getCategory(){
             axios.get("http://localhost:8888/portal/category/findFatherCategory.do")
               .then(this.getCategoryInfooSucc)
@@ -53,7 +55,12 @@
             this.iconList=data
             console.log(this.iconList)
           }
-        }
+        },
+        findByCategoryId:function (categoryId) {
+          this.setKeyword(null)
+          this.setCategoryId(categoryId)
+          this.$router.push("/productList")
+        },
       },
       computed:{
           pages(){

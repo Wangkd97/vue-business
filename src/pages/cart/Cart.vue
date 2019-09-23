@@ -27,6 +27,7 @@
 
 <script>
   import { mapActions } from 'vuex'
+  import { mapGetters } from 'vuex'
   import { Switch } from 'mint-ui';
   import { Popup } from 'mint-ui';
   import { Checklist } from 'mint-ui';
@@ -56,7 +57,9 @@
 
       methods:{
         ...mapActions(['isShowFooterBar']),
-         ...mapActions(['setUserInfo']),
+         ...mapActions(['setUserInfo','setdingdanNo']),
+        ...mapGetters(['getJudgeAddress','getAddress','getdingdanNo']),
+
           getCarts:function(){
            var  _vm=this
             this.service.get("/cart/searchCartProductList").then(function(response){
@@ -90,6 +93,7 @@
             .then(function(response){
               console.log(response+"============dingdan======")
               _vm.orderNo=response.data.data.orderNo
+              this.setdingdanNo=_vm.orderNo
               console.log(_vm.orderNo+"=====cart=chuan=dingdanhao===")
               _vm.$router.push({
                 name:"cartPay",

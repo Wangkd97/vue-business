@@ -32,6 +32,7 @@
           imgSrc: this.$route.params.imgSrc,
           orderId: this.$route.params.orderId,
           count: "",//倒计时
+          timer:null
         }
       },
       methods: {
@@ -40,6 +41,7 @@
           this.$router.go(-1)
         },
         findstatus: function (orderId) {
+          console.log("aaaaaaaaa"+orderId)
           var _vm = this;
           //通过axios
           this.service.post("/portal/order/searPayStatus", {
@@ -77,6 +79,24 @@
 
 
         },
+        goGrdoupRecor(){
+          const TIME_COUNT = 5;
+          if(!this.timer){
+            this.count = TIME_COUNT;
+            this.show = false;
+            this.timer = setInterval(()=>{
+              if(this.count > 0 && this.count <= TIME_COUNT){
+                this.count--;
+              }else{
+                this.show = true;
+                clearInterval(this.timer);
+                this.timer = null;
+                //跳转的页面写在此处
+                this.$router.push('/myOrder')
+              }
+            },1000)
+          }
+        },
         mounted() {
           this.threeGo()
           console.log(this.orderId + "=====orderid=======")
@@ -85,14 +105,10 @@
               setTimeout(this.findstatus(this.orderId), 0)
             }, 3000)
           }
+          this.goGrdoupRecor()
+          this.timer=setInterval(this.findstatus,1000)
         },
 
-        beforeDestroy() {
-          clearInterval(this.timer)
-        },
-        destroyed() {
-          clearInterval(this.timer)
-        },
       }
     }
 

@@ -61,7 +61,7 @@
 
 <script>
   import { Cell } from 'mint-ui';
-
+  import {mapActions} from 'vuex'
   import {mapGetters} from 'vuex'
     export default {
         name: "my",
@@ -78,7 +78,7 @@
 
       },
       mounted(){
-
+        this.isShowFooterBar(true)
           if(JSON.stringify( this.getUser)=='{}'){
              this.optxex="去登陆"
              this.isLogin=false
@@ -90,7 +90,7 @@
 
       },
       methods:{
-
+        ...mapActions(['isShowFooterBar']),
         logic:function () {
 
           if(this.isLogin){

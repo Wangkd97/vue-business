@@ -59,7 +59,7 @@
                this.$router.push("/login")
                 //this.$router.push("/cart")
               }else{
-                this.$router.push("/cart")
+                this.$router.push("/tcart")
                 //this.$router.push("/login")
               }
               this.cart_img='static/images/cart_selected.png'

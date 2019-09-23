@@ -55,6 +55,10 @@ var service=axios.create({
 Vue.prototype.service=service
 
 /* eslint-disable no-new */
+Vue.filter("formatMoney",function (value) {
+  return "￥"+value.toFixed(2)+"元"
+})
+
 
 import {store} from  './store/index'
 new Vue({

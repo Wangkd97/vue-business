@@ -4,18 +4,43 @@
       <div class="header-left"><div class="iconfont icon-back"></div></div>
       <div class="header-input"><span class="iconfont">&#xe632;</span>
         <!--<span class="warn">搜索商品信息</span>-->
-        <input placeholder="请输入要搜索的商品" >
+        <input placeholder="请输入要搜索的商品" v-model="productname">
 
       </div>
       <router-link to="/">
-       <div class="header-right"><span class="city">搜索</span></div>
+       <div class="header-right"><span class="city" @click="findByKeyword">搜索</span></div>
       </router-link>
     </div>
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
+  import {Toast} from 'mint-ui'
     export default {
-        name: "Header"
+        name: "Header",
+      data(){
+        return {
+          productname:null
+        }
+      },
+      methods:{
+        ...mapActions(['setKeyword','setCategoryId']),
+        findByKeyword:function () {
+          if(this.productname==null){
+            Toast({
+              message: '请输入内容',
+              position: 'center',
+              duration: 3000
+            });
+          }
+          else {
+            this.setKeyword(this.productname)
+            this.setCategoryId(null)
+            this.$router.push("/productList")
+          }
+        }
+
+      }
     }
 </script>
 

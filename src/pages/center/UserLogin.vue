@@ -51,7 +51,7 @@
                 if(response.data.status==0&&response.data.wrongMsg==null){
                   //当用户登录成功后，将用户信息保存到vuex中
                   _vm.setUserInfo(response.data.data)
-                  _vm.$router.go(-1)
+                  _vm.$router.push("/my")
                  // _vm.$router.push("/my")
                 }else{
                   Toast('用户不存在或密码错误')

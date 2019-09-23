@@ -14,7 +14,9 @@
       <br>
       <span>手机号：</span><input style="">
       <br>
-      <span>所在地区：</span>
+      <span>所在省份（直辖市）：</span><input>
+      <br>
+
       <span>详细地址：</span><input name="detailaddress">
     </div>
 
